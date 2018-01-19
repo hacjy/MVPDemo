@@ -3,7 +3,7 @@ package com.ha.cjy.mvpdemo.Presenter;
 import android.os.Message;
 
 import com.ha.cjy.mvpdemo.Base.BasePresenter;
-import com.ha.cjy.mvpdemo.Common.Constants;
+import com.ha.cjy.mvpdemo.Constants.InterfaceConstant;
 import com.ha.cjy.mvpdemo.Model.Entity.UserEntity;
 import com.ha.cjy.mvpdemo.Model.Manager.DataResponseCallBack;
 
@@ -23,18 +23,18 @@ public class UserPresenter extends BasePresenter{
             getDataManager().getData(Class.forName("com.ha.cjy.mvpdemo.Model.Entity.UserEntity"), new DataResponseCallBack<UserEntity>() {
                 @Override
                 public void onSuccess(UserEntity data) {
-                    msg.what = Constants.SUCCESS;
+                    msg.what = InterfaceConstant.SUCCESS;
                     msg.obj = data;
                 }
 
                 @Override
                 public void onFail() {
-                    msg.what = Constants.FAILURE;
+                    msg.what = InterfaceConstant.FAILURE;
                 }
 
                 @Override
                 public void onError() {
-                    msg.what = Constants.ERROR;
+                    msg.what = InterfaceConstant.ERROR;
                 }
             });
             mView.onNetworkResult(msg);

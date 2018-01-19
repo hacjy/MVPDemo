@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.ha.cjy.mvpdemo.Base.BaseActivity;
-import com.ha.cjy.mvpdemo.Common.Constants;
+import com.ha.cjy.mvpdemo.Constants.InterfaceConstant;
 import com.ha.cjy.mvpdemo.Model.Entity.UserEntity;
 import com.ha.cjy.mvpdemo.Presenter.UserPresenter;
 import com.ha.cjy.mvpdemo.R;
@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onNetworkResult(Message msg) {
         super.onNetworkResult(msg);
-        if (msg.what == Constants.SUCCESS) {
+        if (msg.what == InterfaceConstant.SUCCESS) {
             UserEntity userEntity = (UserEntity) msg.obj;
             Toast.makeText(this, userEntity.userName, Toast.LENGTH_SHORT).show();
         }
