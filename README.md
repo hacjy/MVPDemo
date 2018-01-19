@@ -1,7 +1,5 @@
-# MVPDemo
+#思考
 
-**思考**
----
 model 对应一层IModel（接口层）：IModel将数据回调给Presenter
 view 对应一层IView（接口）：Presenter通过IView调用Activity中的方法
 Presenter持有IView对象和IModel对象
@@ -15,8 +13,7 @@ Presenter中的IView对象是否为空；
 依赖抽象：通用的抽象出来
 接口隔离：需要什么定义什么接口
 
----
-**独立搭建一个项目架构**
+#独立搭建一个项目架构
 
 1、项目整体架构
 
