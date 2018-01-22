@@ -1,22 +1,21 @@
 package com.ha.cjy.mvpdemo.UI.Pages;
 
 import android.os.Bundle;
-import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.ha.cjy.mvpdemo.Base.BaseActivity;
-import com.ha.cjy.mvpdemo.Constants.InterfaceConstant;
-import com.ha.cjy.mvpdemo.Model.Entity.UserEntity;
+import com.ha.cjy.mvpdemo.Model.Entity.MovieEntity;
 import com.ha.cjy.mvpdemo.Presenter.UserPresenter;
 import com.ha.cjy.mvpdemo.R;
 
 public class MainActivity extends BaseActivity {
+    private TextView mTvText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,11 +27,12 @@ public class MainActivity extends BaseActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
                 mPresenter.getData();
             }
         });
+        mTvText = (TextView) findViewById(R.id.tv_content);
 
         mPresenter = new UserPresenter();
         mPresenter.attachView(this);
@@ -44,11 +44,16 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void onNetworkResult(Message msg) {
-        super.onNetworkResult(msg);
-        if (msg.what == InterfaceConstant.SUCCESS) {
-            UserEntity userEntity = (UserEntity) msg.obj;
-            Toast.makeText(this, userEntity.userName, Toast.LENGTH_SHORT).show();
+    public void onSuccess(Object data) {
+        super.onSuccess(data);
+
+        MovieEntity entity = null;
+        if (data instanceof MovieEntity){
+           entity = (MovieEntity) data;
+        }
+
+        if (mTvText != null && entity != null) {
+            mTvText.setText(entity.toString());
         }
     }
 

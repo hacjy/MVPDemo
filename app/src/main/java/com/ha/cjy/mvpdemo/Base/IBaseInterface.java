@@ -11,6 +11,8 @@ import android.os.Message;
 
 public interface IBaseInterface {
     void showLoadingDialog();
+    public void showLoadingDialog(String msg);
     void hideLoadingDialog();
-    void onNetworkResult(Message msg);
+    void onSuccess(Object data);
+    void onFail(int code,String message);
 }

@@ -1,9 +1,10 @@
 package com.ha.cjy.mvpdemo.Base;
 
 import android.os.Bundle;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import com.ha.cjy.mvpdemo.Common.Views.LoadingDialog;
 
 /**
  * Activity基类
@@ -15,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 
 public abstract class BaseActivity extends AppCompatActivity implements IBaseInterface {
     public BasePresenter mPresenter;
+    private LoadingDialog mLoadingDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,7 +36,18 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseInt
      * 初始化加载框
      */
     private void initLoadingDialog(){
-       //TODO
+        if (mLoadingDialog == null) {
+            mLoadingDialog = new LoadingDialog(this);
+        }
+    }
+
+    /**
+     * 显示加载框
+     */
+    @Override
+    public void showLoadingDialog(String msg){
+        if (mLoadingDialog != null)
+            mLoadingDialog.show(msg);
     }
 
     /**
@@ -42,7 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseInt
      */
     @Override
     public void showLoadingDialog(){
-        //TODO
+        showLoadingDialog("正在加载中");
     }
 
     /**
@@ -50,24 +63,33 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseInt
      */
     @Override
     public void hideLoadingDialog(){
-        //TODO
+        if (mLoadingDialog != null)
+            mLoadingDialog.close();
     }
 
     /**
      * 交互结果的回调
-     * @param msg 消息体，由消息类型和结果返回的数据组成
+     * @param data 数据
      */
-    @Override
-    public void onNetworkResult(Message msg){
+    public void onSuccess(Object data){
         hideLoadingDialog();
-        if (msg == null)
-            return;
+    }
+
+    @Override
+    public void onFail(int code, String message) {
+        hideLoadingDialog();
+        //TODO 失败的提示
     }
 
     @Override
     protected void onDestroy() {
+        if (mLoadingDialog != null) {
+            hideLoadingDialog();
+            mLoadingDialog = null;
+        }
         if (mPresenter != null)
             mPresenter.destoryView();
+
         super.onDestroy();
     }
 

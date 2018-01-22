@@ -1,10 +1,8 @@
 package com.ha.cjy.mvpdemo.Presenter;
 
-import android.os.Message;
 
 import com.ha.cjy.mvpdemo.Base.BasePresenter;
-import com.ha.cjy.mvpdemo.Constants.InterfaceConstant;
-import com.ha.cjy.mvpdemo.Model.Entity.UserEntity;
+import com.ha.cjy.mvpdemo.Model.Entity.MovieEntity;
 import com.ha.cjy.mvpdemo.Model.Manager.DataResponseCallBack;
 
 /**
@@ -17,27 +15,19 @@ public class UserPresenter extends BasePresenter{
     @Override
     public void getData() {
         mView.showLoadingDialog();
-
-        final Message msg = new Message();
         try {
-            getDataManager().getData(Class.forName("com.ha.cjy.mvpdemo.Model.Entity.UserEntity"), new DataResponseCallBack<UserEntity>() {
+            getDataManager().getData(Class.forName("com.ha.cjy.mvpdemo.Model.Entity.UserEntity"), new DataResponseCallBack<MovieEntity>() {
+
                 @Override
-                public void onSuccess(UserEntity data) {
-                    msg.what = InterfaceConstant.SUCCESS;
-                    msg.obj = data;
+                public void onSuccess(MovieEntity data) {
+                    mView.onSuccess(data);
                 }
 
                 @Override
-                public void onFail() {
-                    msg.what = InterfaceConstant.FAILURE;
-                }
-
-                @Override
-                public void onError() {
-                    msg.what = InterfaceConstant.ERROR;
+                public void onFail(int code, String message) {
+                    mView.onFail(code,message);
                 }
             });
-            mView.onNetworkResult(msg);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

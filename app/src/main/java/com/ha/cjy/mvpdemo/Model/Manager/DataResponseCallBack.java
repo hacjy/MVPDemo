@@ -9,6 +9,5 @@ import android.os.Message;
 
 public interface DataResponseCallBack<T> {
     void onSuccess(T data);
-    void onFail();
-    void onError();
+    void onFail(int code, String message);
 }
