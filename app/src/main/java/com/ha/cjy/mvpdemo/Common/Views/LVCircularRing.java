@@ -14,7 +14,6 @@ import android.view.animation.LinearInterpolator;
 
 /**
  * 自定义圆形加载框
- * http://blog.csdn.net/zhaodecang/article/details/53402161
  *
  * Created by cjy on 18/1/22.
  */

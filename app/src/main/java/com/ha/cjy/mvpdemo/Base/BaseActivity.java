@@ -3,7 +3,7 @@ package com.ha.cjy.mvpdemo.Base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-
+import com.ha.cjy.mvpdemo.Common.Utils.ToastUtils;
 import com.ha.cjy.mvpdemo.Common.Views.LoadingDialog;
 
 /**
@@ -78,7 +78,8 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseInt
     @Override
     public void onFail(int code, String message) {
         hideLoadingDialog();
-        //TODO 失败的提示
+        //失败的提示
+        ToastUtils.showShortToast(message);
     }
 
     @Override

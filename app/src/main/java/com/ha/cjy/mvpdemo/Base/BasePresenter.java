@@ -6,6 +6,7 @@ import com.ha.cjy.mvpdemo.Model.Manager.DataManager;
  * 通用的业务逻辑
  * -将Presenter与Activity绑定，与其生命周期绑定，避免出现内存泄漏
  * -解绑
+ * -提供数据管理器
  * Created by cjy on 18/1/19.
  */
 
@@ -25,10 +26,4 @@ public abstract class BasePresenter {
             return;
         this.mView = null;
     }
-
-    /**
-     * 获取数据
-     * @return
-     */
-    public abstract void getData();
 }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 加载框的背景 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- 内部颜色 -->
     <solid android:color="#444444" />

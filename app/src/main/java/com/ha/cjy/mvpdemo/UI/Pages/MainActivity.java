@@ -29,7 +29,7 @@ public class MainActivity extends BaseActivity {
             public void onClick(View view) {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-                mPresenter.getData();
+                ((UserPresenter)mPresenter).getMovieList(0,10);
             }
         });
         mTvText = (TextView) findViewById(R.id.tv_content);

@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
+ * 电影实体类
  * Created by cjy on 18/1/22.
  */
 

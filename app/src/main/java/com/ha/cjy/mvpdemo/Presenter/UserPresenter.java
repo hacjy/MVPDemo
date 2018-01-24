@@ -3,7 +3,7 @@ package com.ha.cjy.mvpdemo.Presenter;
 
 import com.ha.cjy.mvpdemo.Base.BasePresenter;
 import com.ha.cjy.mvpdemo.Model.Entity.MovieEntity;
-import com.ha.cjy.mvpdemo.Model.Manager.DataResponseCallBack;
+import com.ha.cjy.mvpdemo.Common.Net.OnResultListener;
 
 /**
  * 用户页面的业务逻辑
@@ -12,12 +12,16 @@ import com.ha.cjy.mvpdemo.Model.Manager.DataResponseCallBack;
 
 public class UserPresenter extends BasePresenter{
 
-    @Override
-    public void getData() {
+    /**
+     * 获取电影列表
+     * @param start 页数
+     * @param count 每页记录数
+     */
+    public void getMovieList(int start,int count) {
         mView.showLoadingDialog();
         try {
-            getDataManager().getData(Class.forName("com.ha.cjy.mvpdemo.Model.Entity.UserEntity"), new DataResponseCallBack<MovieEntity>() {
-
+            getDataManager().getMovieList(String.valueOf(start),String.valueOf(count),
+                    new OnResultListener<MovieEntity>() {
                 @Override
                 public void onSuccess(MovieEntity data) {
                     mView.onSuccess(data);
@@ -28,7 +32,7 @@ public class UserPresenter extends BasePresenter{
                     mView.onFail(code,message);
                 }
             });
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
