@@ -10,6 +10,6 @@ public class InterfaceConstant {
     /**
      * 请求地址，以豆瓣前250电影列表接口为例
      */
-    public static final String BASE_URL = "https://api.douban.com/v2/movie/";
+    public static final String BASE_URL = "http://192.168.29.253:9090/";
 
 }

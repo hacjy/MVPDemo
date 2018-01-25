@@ -3,11 +3,15 @@ package com.ha.cjy.mvpdemo.Common.Net;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.HeaderMap;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
@@ -37,6 +41,16 @@ public interface ApiService {
     @FormUrlEncoded
     @POST
     Observable<ResponseBody> requestPost(@Url String url, @FieldMap Map<String,String> params);
+
+    /**
+     * post请求，提交json格式数据
+     * @param url 请求地址
+     * @param body
+     * @return
+     */
+    @Headers({"Content-type:application/json;charset=UTF-8"})
+    @POST
+    Observable<ResponseBody> requestPostJson(@Url String url,@Body RequestBody body);
 
     /**
      * 流式下载

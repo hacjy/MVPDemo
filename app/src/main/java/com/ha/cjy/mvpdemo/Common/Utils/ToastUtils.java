@@ -152,7 +152,7 @@ public class ToastUtils {
      *
      * @param text 文本
      */
-    public static void showShortToast(CharSequence text) {
+    public static void show(CharSequence text) {
         showToast(text, Toast.LENGTH_SHORT);
     }
 
@@ -161,7 +161,7 @@ public class ToastUtils {
      *
      * @param resId 资源Id
      */
-    public static void showShortToast(@StringRes int resId) {
+    public static void show(@StringRes int resId) {
         showToast(resId, Toast.LENGTH_SHORT);
     }
 
@@ -171,7 +171,7 @@ public class ToastUtils {
      * @param resId 资源Id
      * @param args  参数
      */
-    public static void showShortToast(@StringRes int resId, Object... args) {
+    public static void show(@StringRes int resId, Object... args) {
         showToast(resId, Toast.LENGTH_SHORT, args);
     }
 
@@ -181,7 +181,7 @@ public class ToastUtils {
      * @param format 格式
      * @param args   参数
      */
-    public static void showShortToast(String format, Object... args) {
+    public static void show(String format, Object... args) {
         showToast(format, Toast.LENGTH_SHORT, args);
     }
 

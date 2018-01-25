@@ -2,7 +2,7 @@ package com.ha.cjy.mvpdemo.UI.Pages;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
@@ -10,7 +10,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.ha.cjy.mvpdemo.Base.BaseActivity;
-import com.ha.cjy.mvpdemo.Model.Entity.MovieEntity;
+import com.ha.cjy.mvpdemo.Common.Utils.PermissionUtils;
+import com.ha.cjy.mvpdemo.Model.Entity.GetMovieListResultData;
 import com.ha.cjy.mvpdemo.Presenter.UserPresenter;
 import com.ha.cjy.mvpdemo.R;
 
@@ -33,9 +34,22 @@ public class MainActivity extends BaseActivity {
             }
         });
         mTvText = (TextView) findViewById(R.id.tv_content);
+        mTvText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getSupportFragmentManager();
+                android.support.v4.app.FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.layout_login, new MovieFragment(), "");
+                transaction.commit();
+            }
+        });
 
         mPresenter = new UserPresenter();
         mPresenter.attachView(this);
+
+        if (!PermissionUtils.check(PermissionUtils.SDCARD)){
+            PermissionUtils.request(this,100,new String[]{PermissionUtils.SDCARD});
+        }
     }
 
     @Override
@@ -47,13 +61,13 @@ public class MainActivity extends BaseActivity {
     public void onSuccess(Object data) {
         super.onSuccess(data);
 
-        MovieEntity entity = null;
-        if (data instanceof MovieEntity){
-           entity = (MovieEntity) data;
+        GetMovieListResultData entity = null;
+        if (data instanceof GetMovieListResultData){
+           entity = (GetMovieListResultData) data;
         }
 
         if (mTvText != null && entity != null) {
-            mTvText.setText(entity.toString());
+            mTvText.setText("返回"+entity.getMovieList().size()+"条数据");
         }
     }
 

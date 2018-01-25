@@ -11,7 +11,7 @@ import com.ha.cjy.mvpdemo.Model.Entity.MovieEntity;
  * Created by cjy on 18/1/22.
  */
 
-public class ResultObject extends MovieEntity {
+public class ResultObject{
     public static final int SUCCESS_CODE = 200;
     public static final int FAILURE_CODE = 400;
     public static final int ERROR_CODE = 500;
@@ -35,6 +35,8 @@ public class ResultObject extends MovieEntity {
     }
 
     public String getMessage() {
+        if (message == null)
+            message = "";
         return message;
     }
 
@@ -66,5 +68,15 @@ public class ResultObject extends MovieEntity {
             }
             return null;
         }
+    }
+
+    public static String toJson(Object object){
+        String jsonStr = "";
+        try {
+            jsonStr = GsonUtils.toJson(object);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return jsonStr;
     }
 }

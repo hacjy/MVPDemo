@@ -2,26 +2,36 @@ package com.ha.cjy.mvpdemo.Base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.ha.cjy.mvpdemo.Common.Utils.ToastUtils;
 import com.ha.cjy.mvpdemo.Common.Views.LoadingDialog;
 
 /**
- * Activity基类
+ * Fragment基类
  * -控制加载框的显示与隐藏
  * -交互行为的回调，子类需要重写该方法
  * -返回布局id
- * Created by cjy on 18/1/19.
+ * Created by cjy on 18/1/24.
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements IBaseInterface {
+public abstract class BaseFragment extends Fragment implements IBaseInterface {
     public BasePresenter mPresenter;
     private LoadingDialog mLoadingDialog;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = LayoutInflater.from(getActivity()).inflate(getLayoutId(), null);
+        return view;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getLayoutId());
 
         initLoadingDialog();
     }
@@ -37,7 +47,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseInt
      */
     private void initLoadingDialog(){
         if (mLoadingDialog == null) {
-            mLoadingDialog = new LoadingDialog(this);
+            mLoadingDialog = new LoadingDialog(getActivity());
         }
     }
 
@@ -83,7 +93,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseInt
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         if (mLoadingDialog != null) {
             hideLoadingDialog();
             mLoadingDialog = null;
@@ -93,5 +103,4 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseInt
 
         super.onDestroy();
     }
-
 }

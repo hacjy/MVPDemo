@@ -26,9 +26,17 @@ public abstract class BaseObserver<T> implements Observer<ResponseBody> {
     public void onNext(ResponseBody value) {
         if (value == null)
             onFail(-1,"返回空数据");
+        onResult(value);
         try {
             String result = value.string();
-            onSuccess(result);
+            ResultObject object = ResultObject.getData(result,ResultObject.class);
+            if (object == null)
+                onFail(-1,"返回空数据");
+            if (object.getCode() == ResultObject.SUCCESS_CODE) {
+                onSuccess(ResultObject.toJson(object.getData()));
+            }else{
+                onFail(object.getCode(),object.getMessage());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             onFail(ResultObject.ERROR_CODE,e.getMessage());
@@ -54,4 +62,5 @@ public abstract class BaseObserver<T> implements Observer<ResponseBody> {
 
     public abstract void onSuccess(String data);
     public abstract void onFail(int code,String message);
+    public abstract void onResult(ResponseBody responseBody);
 }
